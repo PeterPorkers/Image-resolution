@@ -1,0 +1,29 @@
+import os
+import shutil
+from PIL import Image
+
+def resize_images(input_dir, output_dir, size):
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    for filename in os.listdir(input_dir):
+        if filename.endswith(".jpg") or filename.endswith(".png"):
+            image_path = os.path.join(input_dir, filename)
+            output_path = os.path.join(output_dir, filename)
+
+            # Open the image
+            image = Image.open(image_path)
+
+            # Resize the image
+            resized_image = image.resize(size)
+
+            # Save the resized image
+            resized_image.save(output_path)
+
+if __name__ == "__main__":
+    input_folder = "input_images"
+    output_folder = "output_images"
+    target_size = (256, 256)
+
+    resize_images(input_folder, output_folder, target_size)
+    print("Images resized successfully!")
